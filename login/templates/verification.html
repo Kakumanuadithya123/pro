@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'login/styles.css' %}">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h2>Verification</h2>
+            <p>Please enter the verification code sent to your email:</p>
+            <form method="POST">
+                {% csrf_token %}
+                <label for="verification_code">Verification Code:</label>
+                <input type="text" id="verification_code" name="verification_code" placeholder="Enter code" required>
+                <button type="submit">Verify</button>
+            </form>
+            <p id="timer">00:30</p> <!-- Timer Display -->
+        </div>
+    </main>
+
+    <script>
+        // Set the countdown time in seconds (30 seconds)
+        let countdownTime = 30;
+
+        // Function to format the time
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Update the timer every second
+        const timerElement = document.getElementById('timer');
+        const timerInterval = setInterval(() => {
+            if (countdownTime > 0) {
+                countdownTime--;
+                timerElement.textContent = formatTime(countdownTime);
+            } else {
+                clearInterval(timerInterval);
+                timerElement.textContent = "Time's up!";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
