@@ -22,4 +22,3 @@ urlpatterns = [
     # path('', include('login.urls')),
     path('', include('authentication.urls'))
 ]
-
